@@ -1,67 +1,93 @@
-# Exotic Trader – Pricing and Managing a Callable Bond
+# $\color{DarkSlateBlue}{\textbf{Callable\ Bond\ Pricing\ and\ Risk\ Management}}$
 
-## Overview
+## $\color{SteelBlue}{\textbf{1.\ Project\ Context}}$
 
-This project presents a complete workflow for pricing a callable bond and managing the associated call risk over time. It is designed from the perspective of an exotic interest rate trader and provides both theoretical background and a Python-based implementation.
+This project develops a complete pricing and risk-management framework for a callable bond, aligned with interest-rate trading practices.
+It covers term-structure modelling, discounted cash-flow valuation, call exercise logic, and hedging strategies.
 
-The notebook walks through bond pricing fundamentals, callable structures, yield curve modeling, scenario generation, and hedging strategy design using standard fixed-income instruments such as swaps.
+The main deliverable is a Python notebook presenting the full workflow: data construction, model specification, implementation, scenario simulation, and performance analysis.
 
-## Objectives
+## $\color{SteelBlue}{\textbf{2.\ Functional\ Objectives}}$
 
-* Price a callable bond using discounted cash flows and call schedule constraints.
-* Generate realistic synthetic yield curves and model rate dynamics over a quarter.
-* Evaluate call risk and simulate call exercise decisions.
-* Design and backtest a risk-management strategy using swaps or bonds.
-* Provide clean, modular Python functions for pricing, simulation, and hedging.
+### $\color{MidnightBlue}{\textbf{2.1.\ Pricing}}$
 
-## Financial Background
+Develop valuation models for:
 
-A callable bond price is the minimum between:
+* a non-callable bond using discounted cash flows;
+* a callable bond by comparing continuation value with call price.
 
-1. The price of the non-callable bond discounted on the yield curve.
-2. The value implied by the call price when the issuer exercises its option.
+Implement all required financial mathematics for cash-flow generation and discounting.
 
-The notebook details:
+### $\color{MidnightBlue}{\textbf{2.2.\ Yield\ Curve\ Modelling}}$
 
-* Discounting conventions
-* Cash-flow structures
-* Yield curve interpolation
-* Callability features
-* Rate-shift modeling for scenarios
-* Trader-oriented risk management considerations
+Implement continuous term-structure interpolation (`interp1d`).
+Generate meaningful rate scenarios, including:
 
-## Features
+* parallel shifts,
+* twists and slope variations
+* multi-factor curve dynamics affecting convexity.
 
-* Yield curve interpolation using `scipy.interpolate.interp1d`
-* Synthetic rate scenario generation (parallel shifts, steepening, flattening)
-* Callable bond pricing engine
-* Call decision logic simulation
-* Strategy design: entering fixed-payer swaps to hedge the downside if rates fall
-* PnL monitoring and scenario analysis
-* Visualizations using Matplotlib
+### $\color{MidnightBlue}{\textbf{2.3.\ Call\ Exercise\ Analysis}}$
 
-## Code Structure
+Determine optimal call exercise decisions based on:
 
-The implementation is organized into clear components:
+* comparison with callable strike;
+* sensitivity to interest-rate levels and dynamics.
 
-1. **Pricing Functions**
+Compute risk metrics:
 
-   * Non-callable bond pricing
-   * Callable bond pricing with call schedule
+* duration,
+* convexity,
+* call convexity.
 
-2. **Curve and Scenario Tools**
+### $\color{MidnightBlue}{\textbf{2.4.\ Hedging\ Strategy}}$
 
-   * Yield curve interpolation
-   * Stochastic/structured rate shifts
+Provide tools to:
 
-3. **Risk Management Module**
+* price standard interest-rate swaps,
+* calibrate hedges via notional sizing and curve-exposure alignment,
+* mitigate negative convexity introduced by callability.
 
-   * Swap valuation
-   * Hedge adjustments based on rate moves
-   * Quarter-long PnL tracking
+### $\color{MidnightBlue}{\textbf{2.5.\ Simulation\ and\ Performance\ Tracking}}$
 
-4. **Visualization & Analysis**
+Simulate daily rate movements over a chosen horizon.
+Decompose PnL into:
 
-   * Yield curves
-   * Price evolution
-   * Hedge performance
+* rate-driven effects,
+* call-risk evolution,
+* hedge performance contribution.
+
+## $\color{SteelBlue}{\textbf{3.\ Technical\ Specifications}}$
+
+### $\color{MidnightBlue}{\textbf{3.1.\ Technology\ Stack}}$
+
+* Python 3.8+
+* Required libraries:
+
+  * numpy
+  * scipy
+  * matplotlib
+
+### $\color{MidnightBlue}{\textbf{3.2.\ Code\ Architecture}}$
+
+#### $\color{DarkSlateBlue}{\textbf{Pricing\ Module}}$
+
+* Non-callable bond valuation
+* Callable bond valuation with early-exercise logic
+
+#### $\color{DarkSlateBlue}{\textbf{Yield\ Curve\ Module}}$
+
+* Interpolation functions
+* Deterministic and stochastic scenario generation
+
+#### $\color{DarkSlateBlue}{\textbf{Risk\ Management\ Module}}$
+
+* Swap pricing
+* Hedge calibration
+* PnL and sensitivity computations
+
+#### $\color{DarkSlateBlue}{\textbf{Analysis\ and\ Visualization\ Module}}$
+
+* Yield-curve visualisation
+* Price evolution analytics
+* Hedge performance comparison across scenarios
